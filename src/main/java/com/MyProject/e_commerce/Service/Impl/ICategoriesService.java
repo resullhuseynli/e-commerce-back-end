@@ -9,7 +9,7 @@ public interface ICategoriesService {
 
     String addCategory(dtoCategoriesRequest dtoCategoriesRequest);
 
-    String updateCategory(dtoCategoriesRequest dtoCategoriesRequest);
+    String updateCategory(dtoCategoriesRequest dtoCategoriesRequest, Long id);
 
     String deleteCategorybyId(Long id);
 

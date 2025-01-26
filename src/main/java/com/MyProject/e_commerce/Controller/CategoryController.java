@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest")
-public class Controller {
+@RequestMapping("/category")
+public class CategoryController {
 
     @Autowired
     private CategoriesService categoriesService;
 
-    @Autowired
-    private ProductsService productsService;
-
-    @GetMapping("/get/all-categories")
+    @GetMapping("/get/all-list")
     public List<dtoCategoriesResponse> getAllCategories() {
         return categoriesService.getAllCategories();
+    }
+
+    @GetMapping("/get/{id}")
+    public dtoCategoriesResponse getCategorybyId(@PathVariable Long id) {
+        return categoriesService.getCategoryById(id) ;
     }
 
     @DeleteMapping("/delete/{id}")
@@ -30,8 +32,14 @@ public class Controller {
         return categoriesService.deleteCategorybyId(id) ;
     }
 
-    @PostMapping("/add/new-category")
+    @PostMapping("/post/new")
     public String addNewCategory(@RequestBody dtoCategoriesRequest request) {
         return categoriesService.addCategory(request);
     }
+
+    @PutMapping("/update/{id}")
+    public String updateCategory(@PathVariable Long id, @RequestBody dtoCategoriesRequest request) {
+        return categoriesService.updateCategory(request, id);
+    }
+
 }

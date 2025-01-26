@@ -24,24 +24,34 @@ public class CategoriesService implements ICategoriesService {
     public String addCategory(dtoCategoriesRequest dtoCategoriesRequest) {
         Categories categories = new Categories();
         BeanUtils.copyProperties(dtoCategoriesRequest, categories);
-        categoriesRepository.save(categories);
-        if (getCategoryById(categories.getId()) != null) {
-            return "Successfully added category";
+        List<dtoCategoriesResponse> AllCategries = getAllCategories();
+        for (dtoCategoriesResponse response : AllCategries) {
+            if (response.getName().equalsIgnoreCase(dtoCategoriesRequest.getName())) {
+                return "Category already exists";
+            }
         }
-        return "Category already exists";
+        categoriesRepository.save(categories);
+        return "Successfully added category";
     }
 
     @Override
-    public String updateCategory(dtoCategoriesRequest dtoCategoriesRequest) {
-        return "";
+    public String updateCategory(dtoCategoriesRequest dtoCategoriesRequest, Long id) {
+        boolean isExists = categoriesRepository.existsById(id) ;
+        if (isExists) {
+            Categories categories  = categoriesRepository.findById(id).get();
+            BeanUtils.copyProperties(dtoCategoriesRequest, categories);
+            categoriesRepository.save(categories);
+            return "Successfully updated category";
+        }
+        return "Id not found";
     }
 
     @Override
     public String deleteCategorybyId(Long id) {
-        categoriesRepository.deleteById(id);
-        if (categoriesRepository.existsById(id)) {
+        if (!categoriesRepository.existsById(id)) {
             return "Category does not exist";
         }
+        categoriesRepository.deleteById(id);
         return "Category deleted sucessfully";
     }
 

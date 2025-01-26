@@ -7,12 +7,14 @@ import java.util.List;
 
 public interface IProductsService {
 
-    public String addProduct(dtoProductsRequest dtoProductsRequest);
+    String addNewProduct(dtoProductsRequest dtoProductsRequest);
 
-    public String updateProduct(dtoProductsRequest dtoProductsRequest);
+    String updateProduct(dtoProductsRequest dtoProductsRequest, Long id);
 
-    public String deleteProduct(dtoProductsRequest dtoProductsRequest);
+    String deleteProduct(Long id);
 
-    public List<dtoProductsResponse> getAllProducts();
+    List<dtoProductsResponse> getAllProducts();
+
+    dtoProductsResponse getProductById(Long id);
 
 }
