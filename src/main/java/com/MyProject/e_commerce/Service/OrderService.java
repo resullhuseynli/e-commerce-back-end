@@ -60,12 +60,13 @@ public class OrderService implements IOrderService {
         double totalprice = 0;
         order.setDate(new Date());
         Map<Long,Integer> products = dtoOrders.getProducts();
+        int totalquantity = 0 ;
 
         for (Long productId : products.keySet()) {
             Optional<Products> product = productsRepository.findById(productId);
             Integer quantity = products.get(productId) ;
             if (product.isPresent() && product.get().getQuantity() >= quantity) {
-
+                totalquantity += quantity;
                 buyProduct(productId, quantity);
                 totalprice += (product.get().getPrice() * quantity) ;
                 productslist.add(product.get());
@@ -73,6 +74,7 @@ public class OrderService implements IOrderService {
                 unavailableProducts.add(productId);
             }
         }
+        order.setTotalquantity(totalquantity);
         order.setProducts(productslist);
         order.setTotalprice(totalprice);
         ordersRepository.save(order);

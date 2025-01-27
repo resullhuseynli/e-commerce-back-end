@@ -1,6 +1,8 @@
 package com.MyProject.e_commerce.Model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,21 +14,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "order_products")
 public class OrderProducts {
 
-    @EmbeddedId
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private OrderProductsKey id;
+    @Column(name = "order_id", nullable = false)
+    private Long orderId;
 
-    @ManyToOne
-    @MapsId("orderId")
-    @JoinColumn(name = "order_id")
-    private Orders order;
-
-    @ManyToOne
-    @MapsId("productId")
-    @JoinColumn(name = "product_id")
-    private Products product;
-
-    @Column(nullable = false)
-    private int quantity;
+    @Column(name = "product_id")
+    private Long productId;
 
 }

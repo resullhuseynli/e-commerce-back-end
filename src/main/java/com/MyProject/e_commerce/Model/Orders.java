@@ -28,6 +28,9 @@ public class Orders {
     @Column(name = "total_price")
     private double totalprice;
 
+    @Column(name = "total_quantity")
+    private int totalquantity;
+
     @ManyToMany
     @JoinTable(
             name = "order_products",
