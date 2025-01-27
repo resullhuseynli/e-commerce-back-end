@@ -2,7 +2,6 @@ package com.MyProject.e_commerce.Controller;
 
 
 import com.MyProject.e_commerce.Service.CategoriesService;
-import com.MyProject.e_commerce.Service.ProductsService;
 import com.MyProject.e_commerce.dto.dtoCategories.dtoCategoriesRequest;
 import com.MyProject.e_commerce.dto.dtoCategories.dtoCategoriesResponse;
 import org.springframework.beans.factory.annotation.Autowired;
