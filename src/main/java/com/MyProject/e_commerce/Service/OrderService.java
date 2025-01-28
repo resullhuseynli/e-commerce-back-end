@@ -57,6 +57,7 @@ public class OrderService implements IOrderService {
         Orders order = new Orders();
         List<Products> productslist = new ArrayList<>();
         List<Long> unavailableProducts = new ArrayList<>();
+        List<Long> notenoughProducts = new ArrayList<>();
         double totalprice = 0;
         order.setDate(new Date());
         Map<Long,Integer> products = dtoOrders.getProducts();
@@ -65,11 +66,15 @@ public class OrderService implements IOrderService {
         for (Long productId : products.keySet()) {
             Optional<Products> product = productsRepository.findById(productId);
             Integer quantity = products.get(productId) ;
-            if (product.isPresent() && product.get().getQuantity() >= quantity) {
-                totalquantity += quantity;
-                buyProduct(productId, quantity);
-                totalprice += (product.get().getPrice() * quantity) ;
-                productslist.add(product.get());
+            if (product.isPresent()) {
+                if (product.get().getQuantity() >= quantity){
+                    totalquantity += quantity;
+                    buyProduct(productId, quantity);
+                    totalprice += (product.get().getPrice() * quantity) ;
+                    productslist.add(product.get());
+                } else {
+                    notenoughProducts.add(productId) ;
+                }
             } else {
                 unavailableProducts.add(productId);
             }
@@ -80,7 +85,8 @@ public class OrderService implements IOrderService {
         ordersRepository.save(order);
 
         if (!unavailableProducts.isEmpty()) {
-            return "Products were not available: " + unavailableProducts +
+            return "Products were not found: " + unavailableProducts +
+                    "\nWe have not enough products in Stock: " + notenoughProducts +
                     "\nOrder created successfully" ;
         }
 
