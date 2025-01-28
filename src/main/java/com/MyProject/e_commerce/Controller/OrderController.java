@@ -7,6 +7,8 @@ import com.MyProject.e_commerce.dto.dtoOrders.dtoOrdersResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -24,4 +26,13 @@ public class OrderController {
         return orderService.getOrderById(id);
     }
 
+    @GetMapping("/get/all-orders")
+    public Map<Long,dtoOrdersResponse> getAllOrders() {
+        return orderService.getAllOrders();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteOrderById(@PathVariable Long id) {
+        return orderService.deleteOrderbyId(id) ;
+    }
 }

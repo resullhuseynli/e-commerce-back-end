@@ -9,8 +9,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductsRepository extends JpaRepository<Products, Long> {
 
+    //Decrease and check the quanities
     @Modifying
     @Query(value = "UPDATE Products p SET p.quantity = p.quantity - :amount WHERE p.id = :id AND p.quantity >= :amount")
     void buyProducts(Long id, int amount);
+
+    //Increase quantity When Order Canceled
+    @Modifying
+    @Query("UPDATE Products p SET p.quantity = p.quantity + :amount WHERE p.id = :id")
+    void returnProducts(Long id , int amount);
 
 }

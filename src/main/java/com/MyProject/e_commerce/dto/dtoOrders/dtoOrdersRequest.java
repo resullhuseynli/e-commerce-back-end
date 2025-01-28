@@ -11,6 +11,6 @@ import java.util.Map;
 @NoArgsConstructor
 public class dtoOrdersRequest {
 
-    private Map<Long, Integer> products;
+    private Map<Long, Integer> products;  //Long is product Id , Integer is product quantity
 
 }
