@@ -1,6 +1,6 @@
 # E-Commerce Application
 
-This is a Spring Boot-based e-commerce application that allows users to manage categories, products, and orders. The application uses Java, Spring Boot, and Maven for development.
+This is a Spring Boot-based e-commerce application that allows users to manage categories, products, and orders. The application uses Java, Spring Boot, and Maven for development. This is the first Spring Boot Application I made.
 
 ## Table of Contents
 
